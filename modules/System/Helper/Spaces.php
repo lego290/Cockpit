@@ -141,7 +141,7 @@ class Spaces extends \Lime\Helper {
         $fs->mkdir("{$path}/storage/tmp");
         $fs->mkdir("{$path}/storage/uploads");
 
-        $this->app->trigger('spaces.config.create', [$spaceConfig]);
+        $this->app->trigger('spaces.config.create', [$spaceConfig, $name]);
 
         $export = $this->app->helper('utils')->var_export($spaceConfig->getArrayCopy(), true);
 
