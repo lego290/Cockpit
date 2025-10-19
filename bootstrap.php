@@ -42,6 +42,7 @@ class Cockpit {
 
         $appDir = APP_DIR;
         $app    = null;
+        $shared = null;
         $cfg    = null;
 
         if (!$envDir) {
@@ -50,6 +51,14 @@ class Cockpit {
 
         if ($appDir != $envDir) {
             DotEnv::load($envDir);
+        }
+
+        if (file_exists("{$appDir}/config/shared.php")) {
+
+            $shared = include("{$appDir}/config/shared.php");
+
+            //resolve env vars (eg ${DB_SERVER}) based values
+            DotEnv::resolveEnvsInArray($shared);
         }
 
         if (file_exists("{$envDir}/config/config.php")) {
@@ -103,7 +112,7 @@ class Cockpit {
                 ]
             ]
 
-        ], $cfg ?? [], $config);
+        ], $shared ?? [], $cfg ?? [], $config);
 
 
         if ($config['debug']) {
