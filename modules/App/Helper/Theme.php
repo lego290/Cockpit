@@ -63,6 +63,10 @@ class Theme extends \Lime\Helper {
             return $this->app->pathToUrl('#config:favicon.png');
         }
 
+        if ($this->app->path('#app:config/favicon.png')) {
+            return $this->app->pathToUrl('#app:config/favicon.png');
+        }
+
         return $this->pathToUrl('#app:favicon.png');
     }
 
@@ -79,6 +83,10 @@ class Theme extends \Lime\Helper {
 
         if ($this->app->path('#config:logo.svg')) {
             return $this->app->pathToUrl('#config:logo.svg');
+        }
+
+        if ($this->app->path('#app:config/logo.svg')) {
+            return $this->app->pathToUrl('#app:config/logo.svg');
         }
 
         return $this->app->baseUrl('app:assets/img/logo.svg');
@@ -113,6 +121,10 @@ class Theme extends \Lime\Helper {
 
         if ($context === 'app:header' && $this->app->path('#config:theme.css')) {
             $assets[] = '#config:theme.css';
+        }
+
+        if ($context === 'app:header' && $this->app->path('#app:config/theme.css')) {
+            $assets[] = '#app:config/theme.css';
         }
 
         return $this->app->assets($assets, $this->app->retrieve('app.version'));
